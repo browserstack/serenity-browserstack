@@ -20,12 +20,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>3.2.1</serenity.version>
-        <serenity.maven.version>3.2.1</serenity.maven.version>
-        <serenity.cucumber.version>3.2.1</serenity.cucumber.version>
-        <browserstack.local.version>1.0.3</browserstack.local.version>
-
-        <maven.failsafe-plugin.version>3.0.0-M5</maven.failsafe-plugin.version>
+        <serenity.version>3.2.5</serenity.version>
         <maven.surefire-plugin.version>3.0.0-M5</maven.surefire-plugin.version>
         <maven.compiler-plugin.version>3.8.1</maven.compiler-plugin.version>
 
@@ -99,11 +94,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.10</version>
-        </dependency>
-        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.6.2</version>
@@ -111,20 +101,24 @@
         </dependency>
         <dependency>
             <groupId>com.browserstack</groupId>
-            <artifactId>browserstack-local-java</artifactId>
-            <version>${browserstack.local.version}</version>
+            <artifactId>browserstack-java-sdk</artifactId>
+            <version>LATEST</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire-plugin.version}</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>getClasspathFilenames</id>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -136,22 +130,19 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven.failsafe-plugin.version}</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire-plugin.version}</version>
                 <configuration>
                     <includes>
                         <include>com/browserstack/cucumber/SingleTest.java</include>
                     </includes>
                     <reuseForks>true</reuseForks>
+                    <argLine>
+                        -javaagent:${com.browserstack:browserstack-java-sdk:jar}
+                    </argLine>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
@@ -183,17 +174,20 @@
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven.failsafe-plugin.version}</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire-plugin.version}</version>
                         <configuration>
                             <includes>
                                 <include>com/browserstack/cucumber/SingleTest.java</include>
                             </includes>
-                            <reuseForks>true</reuseForks>
+                            <argLine>
+                                -javaagent:${com.browserstack:browserstack-java-sdk:jar}
+                            </argLine>
                             <systemPropertyVariables>
-                                <environment>single</environment>
-                                <taskID>MY_TEST_SCHEMA_${surefire.forkNumber}</taskID>
+                                <platform>1</platform>
                             </systemPropertyVariables>
+                            <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -205,16 +199,21 @@
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven.failsafe-plugin.version}</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire-plugin.version}</version>
                         <configuration>
                             <includes>
                                 <include>com/browserstack/cucumber/LocalTest.java</include>
                             </includes>
                             <reuseForks>true</reuseForks>
+                            <argLine>
+                                -javaagent:${com.browserstack:browserstack-java-sdk:jar}
+                            </argLine>
                             <systemPropertyVariables>
-                                <environment>local</environment>
+                                <platform>1</platform>
                             </systemPropertyVariables>
+                            <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -226,8 +225,9 @@
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven.failsafe-plugin.version}</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire-plugin.version}</version>
                         <configuration>
                             <includes>
                                 <include>com/browserstack/cucumber/Parallel*.java</include>
@@ -237,8 +237,13 @@
                             <forkCount>4</forkCount>
                             <reuseForks>true</reuseForks>
                             <systemPropertyVariables>
-                                <environment>parallel_${surefire.forkNumber}</environment>
+                                <platform>platform_${surefire.forkNumber}</platform>
                             </systemPropertyVariables>
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <argLine>
+                                -javaagent:${com.browserstack:browserstack-java-sdk:jar}
+                            </argLine>
+                            <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
                     </plugin>
                 </plugins>
