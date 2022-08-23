@@ -21,6 +21,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>3.2.5</serenity.version>
+        <snakeyml.version>1.30</snakeyml.version>
         <maven.surefire-plugin.version>3.0.0-M5</maven.surefire-plugin.version>
         <maven.compiler-plugin.version>3.8.1</maven.compiler-plugin.version>
 
@@ -100,6 +101,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyml.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.browserstack</groupId>
             <artifactId>browserstack-java-sdk</artifactId>
             <version>LATEST</version>
@@ -138,9 +144,6 @@
                         <include>com/browserstack/cucumber/SingleTest.java</include>
                     </includes>
                     <reuseForks>true</reuseForks>
-                    <argLine>
-                        -javaagent:${com.browserstack:browserstack-java-sdk:jar}
-                    </argLine>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
@@ -181,9 +184,6 @@
                             <includes>
                                 <include>com/browserstack/cucumber/SingleTest.java</include>
                             </includes>
-                            <argLine>
-                                -javaagent:${com.browserstack:browserstack-java-sdk:jar}
-                            </argLine>
                             <systemPropertyVariables>
                                 <platform>1</platform>
                             </systemPropertyVariables>
@@ -239,10 +239,6 @@
                             <systemPropertyVariables>
                                 <platform>platform_${surefire.forkNumber}</platform>
                             </systemPropertyVariables>
-                            <testFailureIgnore>true</testFailureIgnore>
-                            <argLine>
-                                -javaagent:${com.browserstack:browserstack-java-sdk:jar}
-                            </argLine>
                             <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
                     </plugin>
