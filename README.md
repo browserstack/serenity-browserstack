@@ -11,11 +11,11 @@ Master branch contains **Selenium 3** samples, for **Selenium 4 - W3C protocol**
 ## Setup
 * Clone the repo
 * Install dependencies `mvn install`
-* You can setup environment variables for all sample repos (see Notes) or update `serenity.properties` file with your [BrowserStack Username and Access Key](https://www.browserstack.com/accounts/settings)
+* You can setup environment variables for all sample repos (see Notes) or update `browserstack.yml` file with your [BrowserStack Username and Access Key](https://www.browserstack.com/accounts/settings)
 
 ## Running your tests
 - To run a single test, run `mvn verify -P single`
-- To run local tests, run `mvn verify -P local`
+- To run local tests, update your `browserstack.yml` file with `browserstackLocal: true` and run `mvn verify -P local`
 - To run parallel tests, run `mvn verify -P parallel`
 
  Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
@@ -29,9 +29,3 @@ Master branch contains **Selenium 3** samples, for **Selenium 4 - W3C protocol**
   export BROWSERSTACK_USERNAME=<browserstack-username> &&
   export BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
   ```
-  
-## Additional Resources
-* [Documentation for writing Automate test scripts in Java](https://www.browserstack.com/automate/java)
-* [Customizing your tests on BrowserStack](https://www.browserstack.com/automate/capabilities)
-* [Browsers & mobile devices for selenium testing on BrowserStack](https://www.browserstack.com/list-of-browsers-and-platforms?product=automate)
-* [Using REST API to access information about your tests via the command-line interface](https://www.browserstack.com/automate/rest-api)
