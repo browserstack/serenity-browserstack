@@ -5,8 +5,8 @@
   "capabilities": {
     "browserstack.use_w3c": true,
     "bstack:options": {
-      "sessionName": "parallel_test",
-      "buildName": "serenity-browserstack",
+      "sessionName": "BStack parallel serenity",
+      "buildName": "browserstack-build-1",
       "projectName": "Test App",
       "source": "serenity:sample-selenium-4-v1.0",
       "debug": true
