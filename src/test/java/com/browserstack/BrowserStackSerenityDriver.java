@@ -3,12 +3,12 @@ package com.browserstack;
 import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.browserstack.local.Local;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
@@ -77,7 +77,7 @@ public class BrowserStackSerenityDriver implements DriverSource{
 
         String urlString = "https://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub";
         HashMap<String, Object> bStackOptionsMap = (HashMap<String, Object>) capabilities.getCapability("bstack:options");
-        bStackOptionsMap.put("source", "serenity:sample-selenium-4-v1.0");
+        bStackOptionsMap.put("source", "serenity:sample-selenium-4:v1.0");
         try {
             return new RemoteWebDriver(
                     new URL(urlString),
