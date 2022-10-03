@@ -8,7 +8,6 @@
       "sessionName": "BStack parallel serenity",
       "buildName": "browserstack-build-1",
       "projectName": "Test App",
-      "source": "serenity:sample-selenium-4-v1.0",
       "debug": true
     }
   },
