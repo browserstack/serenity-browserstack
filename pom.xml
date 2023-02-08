@@ -142,11 +142,20 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven.failsafe-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>${maven.failsafe-plugin.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <includes>
                         <include>com/browserstack/cucumber/SampleTest.java</include>
                     </includes>
-                    <reuseForks>true</reuseForks>
+                    <parallel>classes</parallel>
+                    <parallel>methods</parallel>
+                    <useUnlimitedThreads>true</useUnlimitedThreads>
                     <argLine>
                         -javaagent:${com.browserstack:browserstack-java-sdk:jar}
                     </argLine>
