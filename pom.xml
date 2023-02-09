@@ -153,8 +153,7 @@
                     <includes>
                         <include>com/browserstack/cucumber/SampleTest.java</include>
                     </includes>
-                    <parallel>classes</parallel>
-                    <parallel>methods</parallel>
+                    <parallel>classesAndMethods</parallel>
                     <useUnlimitedThreads>true</useUnlimitedThreads>
                     <argLine>
                         -javaagent:${com.browserstack:browserstack-java-sdk:jar}
