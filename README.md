@@ -14,9 +14,8 @@ Master branch contains **Selenium 4** samples, for **Selenium 3 - JSON Wire prot
 * You can setup environment variables for all sample repos (see Notes) or update `serenity.properties` file with your [BrowserStack Username and Access Key](https://www.browserstack.com/accounts/settings)
 
 ## Running your tests
-- To run a single test, run `mvn verify -P single`
+- To run tests, run `mvn verify -P parallel`
 - To run local tests, run `mvn verify -P local`
-- To run parallel tests, run `mvn verify -P parallel`
 
  Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 
