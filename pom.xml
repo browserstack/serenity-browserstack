@@ -140,9 +140,15 @@
                 <version>${maven.failsafe-plugin.version}</version>
                 <configuration>
                     <includes>
-                        <include>com/browserstack/cucumber/SingleTest.java</include>
+                        <include>com/browserstack/cucumber/Parallel*.java</include>
                     </includes>
+                    <parallel>classes</parallel>
+                    <threadCount>4</threadCount>
+                    <forkCount>4</forkCount>
                     <reuseForks>true</reuseForks>
+                    <systemPropertyVariables>
+                        <environment>parallel_${surefire.forkNumber}</environment>
+                    </systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
@@ -223,9 +229,6 @@
 
         <profile>
             <id>parallel</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>

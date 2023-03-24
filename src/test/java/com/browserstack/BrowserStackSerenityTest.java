@@ -13,6 +13,8 @@ import net.thucydides.core.util.SystemEnvironmentVariables;
 
 public class BrowserStackSerenityTest {
     static Local bsLocal;
+    private static Object lock = new Object();
+    private static Integer parallels = 0;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -34,18 +36,26 @@ public class BrowserStackSerenityTest {
                     && environmentVariables.getProperty(key).equals("true");
         }
 
-        if (is_local) {
-            bsLocal = new Local();
-            Map<String, String> bsLocalArgs = new HashMap<String, String>();
-            bsLocalArgs.put("key", accessKey);
-            bsLocal.start(bsLocalArgs);
+        synchronized (lock) {
+            parallels++;
+            if ((bsLocal == null || !bsLocal.isRunning()) && is_local) {
+                bsLocal = new Local();
+                Map<String, String> bsLocalArgs = new HashMap<String, String>();
+                bsLocalArgs.put("key", accessKey);
+                try {
+                    bsLocal.start(bsLocalArgs);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     @AfterClass
     public static void tearDown() throws Exception {
-        if (bsLocal != null) {
-            bsLocal.stop();
-        }
+        synchronized (lock){
+          parallels--;
+          if (bsLocal != null && parallels == 0) bsLocal.stop();
+      }
     }
 }
