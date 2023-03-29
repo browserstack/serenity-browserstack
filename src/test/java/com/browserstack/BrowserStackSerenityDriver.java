@@ -3,13 +3,11 @@ package com.browserstack;
 import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import com.browserstack.local.Local;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.junit.AfterClass;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -18,9 +16,6 @@ import net.thucydides.core.webdriver.DriverSource;
 
 @SuppressWarnings("unchecked")
 public class BrowserStackSerenityDriver implements DriverSource{
-    private static Object lock = new Object();
-    private static Integer parallels = 0;
-    private static Local bsLocal;
 
     public WebDriver newDriver() {
         String test_config = System.getProperty("test_config");
@@ -69,31 +64,9 @@ public class BrowserStackSerenityDriver implements DriverSource{
             accessKey = (String) config.get("key");
         }
 
-        synchronized (lock) {
-            parallels++;
-            try {
-              if ((bsLocal == null || !bsLocal.isRunning()) && capabilities.getCapability("bstack:options") != null
-                      && ((JSONObject) capabilities.getCapability("bstack:options")).get("local") != null
-                      && ((boolean) ((JSONObject) capabilities.getCapability("bstack:options")).get("local")) == true) {
-                  bsLocal = new Local();
-                  Map<String, String> options = new HashMap<String, String>();
-                  options.put("key", accessKey);
-                    try {
-                      bsLocal.start(options);
-                  } catch (Exception e){
-                      e.printStackTrace();
-                  }
-      }
-            } catch(Exception e) {
-                System.err.println("Error: could not start browserstack local");
-                e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-
         String urlString = "https://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub";
         HashMap<String, Object> bStackOptionsMap = (HashMap<String, Object>) capabilities.getCapability("bstack:options");
-        bStackOptionsMap.put("source", "serenity:sample-master:v1.0");
+        bStackOptionsMap.put("source", "serenity:sample-master:v1.1");
         try {
             return new RemoteWebDriver(
                     new URL(urlString),
@@ -108,13 +81,5 @@ public class BrowserStackSerenityDriver implements DriverSource{
 
     public boolean takesScreenshots() {
         return true;
-    }
-
-    @AfterClass
-    public static void tearDown() throws Exception {
-      synchronized (lock){
-          parallels--;
-          if (bsLocal != null && parallels == 0) bsLocal.stop();
-      }
     }
 }
