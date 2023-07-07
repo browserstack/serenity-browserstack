@@ -28,14 +28,11 @@ jobs:
      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.commit_sha }}
-      - name: Commit SHA
-        run: |
-          echo "commit_sha=${{ github.event.inputs.commit_sha }}" >> $GITHUB_ENV
-          echo "commit_sha=${{ github.event.inputs.commit_sha }}" >> $env:GITHUB_ENV
       - uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
         id: status-check-in-progress
         env:
           job_name: Serenity Repo ${{ matrix.Java }} - ${{ matrix.os }} Sample
+          commit_sha: ${{ github.event.inputs.commit_sha }}
         with:
           github-token: ${{ github.token }}
           script: |
@@ -73,6 +70,7 @@ jobs:
         env:
           conclusion: ${{ job.status }}
           job_name: Serenity Repo ${{ matrix.Java }} - ${{ matrix.os }} Sample
+          commit_sha: ${{ github.event.inputs.commit_sha }}
         with:
           github-token: ${{ github.token }}
           script: |
