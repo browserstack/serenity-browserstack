@@ -25,7 +25,7 @@ jobs:
       BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
     steps:
-     - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.commit_sha }}
       - uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
