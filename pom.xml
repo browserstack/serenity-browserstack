@@ -32,14 +32,14 @@
         <repository>
             <id>serenity</id>
             <name>bintray</name>
-            <url>http://dl.bintray.com/serenity/maven</url>
+            <url>https://dl.bintray.com/serenity/maven</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>serenity</id>
             <name>bintray-plugins</name>
-            <url>http://dl.bintray.com/serenity/maven</url>
+            <url>https://dl.bintray.com/serenity/maven</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -142,13 +142,6 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven.failsafe-plugin.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit47</artifactId>
-                        <version>${maven.failsafe-plugin.version}</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <includes>
                         <include>com/browserstack/cucumber/SampleTest.java</include>

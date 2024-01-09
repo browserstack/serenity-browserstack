@@ -24,7 +24,7 @@ buildIdentifier: '#${BUILD_NUMBER}' # Supports strings along with either/both ${
 # This property is needed to send test context to BrowserStack (test name, status)
 framework: serenity
 
-source: serenity:sample-sdk:v1.1
+source: serenity:sample-master:v1.2
 
 # =======================================
 # Platforms (Browsers / Devices to test)
