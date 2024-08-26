@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+repositories { mavenCentral() }
+
+dependencies {
+    implementation 'org.junit.vintage:junit-vintage-engine:5.8.2'
+    implementation 'net.serenity-bdd:serenity-core:3.3.4'
+    implementation 'net.serenity-bdd:serenity-cucumber:3.3.4'
+//    implementation 'net.serenity-bdd:serenity-browserstack:3.3.4'
+    compileOnly 'com.browserstack:browserstack-java-sdk:latest.release'
+}
+
+group = 'com.browserstack'
+version = '1.0-SNAPSHOT'
+description = 'serenity-browserstack'
+sourceCompatibility = '1.8'
+
+def browserstackSDKArtifact = configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find { it.name == 'browserstack-java-sdk' }
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    systemProperties = System.properties
+    jvmArgs += "-javaagent:${browserstackSDKArtifact.file}"
+}
+
+task sampleTest(type: Test) {
+    dependsOn cleanTest
+    include '**/SampleTest.**'
+    useJUnitPlatform()
+}
+
+task sampleLocalTest(type: Test) {
+    dependsOn cleanTest
+    include '**/LocalTest.**'
+    useJUnitPlatform()
+}

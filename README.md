@@ -6,7 +6,7 @@
 
 <img src="https://serenity-bdd.info/wp-content/uploads/elementor/thumbs/serenity-bdd-pac9onzlqv9ebi90cpg4zsqnp28x4trd1adftgkwbq.png" height = "100">
 
-## Run Sample build
+## Using Maven
 ### Setup
 * Clone the repo
 * Replace YOUR_USERNAME and YOUR_ACCESS_KEY with your BrowserStack access credentials in browserstack.yml.
@@ -69,6 +69,43 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
             </plugin>
 ```
 * Install dependencies `mvn compile`
+
+## Using Gradle
+
+### Prerequisites
+- If using Gradle, Java v9+ is required.
+
+### Setup
+* Clone the repo
+* Replace YOUR_USERNAME and YOUR_ACCESS_KEY with your BrowserStack access credentials in browserstack.yml.
+
+### Running your tests
+
+- Clone the repository
+- To run the test suite having cross-platform with parallelization, run `gradle sampleTest`
+- To run local tests, run `gradle sampleLocalTest`
+
+Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
+
+### Integrate your test suite
+
+This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow the steps below to install the SDK in your test suite and run tests on BrowserStack:
+
+* Following are the changes required in `build.gradle` -
+  * Add `compileOnly 'com.browserstack:browserstack-java-sdk:latest.release'` in dependencies
+  * Fetch Artifact Information and add `jvmArgs` property in tasks *SampleTest* and *SampleLocalTest* :
+  ```
+  def browserstackSDKArtifact = configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find { it.name == 'browserstack-java-sdk' }
+  
+  task sampleTest(type: Test) {
+    dependsOn cleanTest
+    include '**/SampleTest.**'
+    jvmArgs "-javaagent:${browserstackSDKArtifact.file}"
+    useJUnitPlatform()
+  }
+  ```
+
+* Install dependencies and run test `gradle sampleTest`
 
 ## Notes
 * You can view your test results on the [BrowserStack Automate dashboard](https://www.browserstack.com/automate)
