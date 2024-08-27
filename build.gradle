@@ -9,7 +9,7 @@ dependencies {
     implementation 'net.serenity-bdd:serenity-core:3.3.4'
     implementation 'net.serenity-bdd:serenity-cucumber:3.3.4'
 //    implementation 'net.serenity-bdd:serenity-browserstack:3.3.4'
-    compileOnly 'com.browserstack:browserstack-java-sdk:latest.release'
+    implementation 'com.browserstack:browserstack-java-sdk:latest.release'
 }
 
 group = 'com.browserstack'
