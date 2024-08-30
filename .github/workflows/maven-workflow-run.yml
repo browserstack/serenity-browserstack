@@ -64,6 +64,12 @@ jobs:
         run: |
           mvn compile
           mvn verify -P sample-test
+      - name: Run gradle task sampleTest
+        run: |
+          gradle clean sampleTest
+      - name: Run gradle task sampleLocalTest
+        run: |
+          gradle clean sampleLocalTest
       - if: always()
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
         id: status-check-completed
