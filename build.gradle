@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.browserstack.gradle-sdk' version "1.0.0" // sdk plugin
 }
 
 repositories { mavenCentral() }
@@ -8,7 +9,6 @@ dependencies {
     implementation 'org.junit.vintage:junit-vintage-engine:5.8.2'
     implementation 'net.serenity-bdd:serenity-core:3.3.4'
     implementation 'net.serenity-bdd:serenity-cucumber:3.3.4'
-//    implementation 'net.serenity-bdd:serenity-browserstack:3.3.4'
     implementation 'com.browserstack:browserstack-java-sdk:latest.release'
 }
 
