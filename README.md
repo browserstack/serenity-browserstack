@@ -92,6 +92,7 @@ Understand how many parallel sessions you need by using our [Parallel Test Calcu
 This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow the steps below to install the SDK in your test suite and run tests on BrowserStack:
 
 * Following are the changes required in `build.gradle` -
+  * Add `id 'com.browserstack.gradle-sdk' version "1.0.0"` in plugins
   * Add `implementation 'com.browserstack:browserstack-java-sdk:latest.release'` in dependencies
   * Fetch Artifact Information and add `jvmArgs` property in tasks *SampleTest* and *SampleLocalTest* :
   ```
