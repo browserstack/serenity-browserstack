@@ -8,7 +8,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.id == "com.browserstack.gradle-sdk") {
-                useModule("com.browserstack:gradle-sdk:1.0.0")
+                useModule("com.browserstack:gradle-sdk:1.1.2")
             }
         }
     }

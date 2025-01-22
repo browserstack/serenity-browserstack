@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'com.browserstack.gradle-sdk' version "1.0.0" // sdk plugin
+    id 'com.browserstack.gradle-sdk' version "1.1.2" // sdk plugin
 }
 
 repositories { mavenCentral() }
