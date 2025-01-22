@@ -19,6 +19,9 @@ jobs:
       matrix:
         java: [ '8', '11', '17' ]
         os: [ 'macos-latest', 'windows-latest', 'ubuntu-latest' ]
+        exclude:
+          - java: '8'
+            os: 'macos-latest'
     name: Serenity Repo ${{ matrix.Java }} - ${{ matrix.os }} Sample
     env:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
