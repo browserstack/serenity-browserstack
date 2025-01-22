@@ -106,8 +106,8 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
   }
   ```
 * Following are the changes required in `settings.gradle` -
-  * Add `resolutionStrategy` inside `plugpluginManagement`
-  * Inside `resoluitonStrategy` add the plugin `id` as `com.browserstack.gradle-sdk` along with module `version`
+  * Add `resolutionStrategy` inside `pluginManagement`
+  * Inside `resolutionStrategy` add the plugin `id` as `com.browserstack.gradle-sdk` along with module `version`
   ```
   eachPlugin {
             if (requested.id.id == "com.browserstack.gradle-sdk") {
