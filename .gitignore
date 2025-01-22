@@ -19,6 +19,14 @@ pom.xml.next
 release.properties
 
 ##########################
+## Gradle
+##########################
+.Gradle
+gradle
+gradlew*
+bstack_*
+
+##########################
 ## IntelliJ
 ##########################
 *.iml
