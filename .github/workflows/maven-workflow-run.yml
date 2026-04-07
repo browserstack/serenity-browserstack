@@ -55,6 +55,22 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
+      # gradle 8.10.1 is compatible with Java 8 and 11, gradle 9.4.1 is compatible with Java 17,hence setting up different gradle versions for different java versions
+      - name: Set up Gradle 8.10.1 (Java 8)
+        if: matrix.java == '8'
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.10.1'
+      - name: Set up Gradle 8.10.1 (Java 11)
+        if: matrix.java == '11'
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.10.1'
+      - name: Set up Gradle 9.4.1 (Java 17)
+        if: matrix.java == '17'
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '9.4.1'
       - name: Run mvn verify
         run: |
           mvn compile
