@@ -15,7 +15,9 @@ dependencies {
 group = 'com.browserstack'
 version = '1.0-SNAPSHOT'
 description = 'serenity-browserstack'
-sourceCompatibility = '1.8'
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
 
 def browserstackSDKArtifact = configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find { it.name == 'browserstack-java-sdk' }
 
